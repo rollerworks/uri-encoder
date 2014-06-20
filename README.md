@@ -1,7 +1,9 @@
 ﻿Rollerworks UriEncoder
 ======================
 
-[![Build Status](https://secure.travis-ci.org/rollerworks/uri-encoder.png?branch=master)](http://travis-ci.org/rollerworks/uri-encoder)
+[![Build Status](https://secure.travis-ci.org/rollerworks/rollerworks-uri-encoder.png?branch=master)](http://travis-ci.org/rollerworks/rollerworks-uri-encoder)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/0b197295-cc98-4425-afe6-ad2b59283db6/mini.png)](https://insight.sensiolabs.com/projects/0b197295-cc98-4425-afe6-ad2b59283db6)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/rollerworks/rollerworks-uri-encoder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/rollerworks/rollerworks-uri-encoder/?branch=master)
 
 This package provides the Rollerworks UriEncoder component,
 a simple library, to safely encode a string for usage in a URI.
