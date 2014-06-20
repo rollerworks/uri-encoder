@@ -1,6 +1,6 @@
 {
     "name": "rollerworks/uri-encoder",
-    "description": "%DESC%",
+    "description": "A simple library, to safely encode a string for usage in a URI.",
     "keywords": ["rollerworks"],
     "type": "library",
     "license": "MIT",
