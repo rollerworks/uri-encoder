@@ -1,0 +1,6 @@
+formatter.name: pretty
+
+suites:
+    uri_encoder_suite:
+        namespace: Rollerworks\Component\UriEncoder
+        psr4_prefix: Rollerworks\Component\UriEncoder
