@@ -18,7 +18,7 @@ To install the Rollerworks UriEncoder component,
 add `rollerworks/search-uri-encoder` to your composer.json using.
 
 ```bash
-$ php composer.phar require rollerworks/search-uri-encoder
+$ php composer.phar require rollerworks/search-uri-encoder="~1.0"
 ```
 
 Or manually, by adding the following to your
@@ -30,7 +30,7 @@ Or manually, by adding the following to your
     // ...
     require: {
         // ...
-        "rollerworks/uri-encoder": "1.0.*"
+        "rollerworks/uri-encoder": "~1.0"
     }
 }
 ```
