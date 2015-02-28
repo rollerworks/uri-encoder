@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the Rollerworks UriEncoder Component package.
  *
- * (c) 2014 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -51,7 +51,7 @@ class GZipCompressionDecorator implements UriEncoderInterface
     {
         $data = $this->encoder->decodeUri($data);
         if (null === $data) {
-            return null;
+            return;
         }
 
         $result = @gzuncompress($data);
@@ -59,6 +59,6 @@ class GZipCompressionDecorator implements UriEncoderInterface
             return $result;
         }
 
-        return null;
+        return;
     }
 }
