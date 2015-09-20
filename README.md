@@ -1,5 +1,5 @@
-﻿Rollerworks UriEncoder
-======================
+﻿Rollerworks UriEncoder Component
+================================
 
 [![Build Status](https://secure.travis-ci.org/rollerworks/rollerworks-uri-encoder.png?branch=master)](http://travis-ci.org/rollerworks/rollerworks-uri-encoder)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/0b197295-cc98-4425-afe6-ad2b59283db6/mini.png)](https://insight.sensiolabs.com/projects/0b197295-cc98-4425-afe6-ad2b59283db6)
@@ -8,128 +8,152 @@
 This package provides the Rollerworks UriEncoder component,
 a simple library, to safely encode a string for usage in a URI.
 
-And some minor extra's, like string compression.
+And some minor extra's, like string compression and result caching.
 
-## Installation
+Installation
+------------
 
-### Using Composer
-
-To install the Rollerworks UriEncoder component,
-add `rollerworks/search-uri-encoder` to your composer.json using.
+To install this package, add `rollerworks/search-uri-encoder` to your composer.json
 
 ```bash
-$ php composer.phar require rollerworks/search-uri-encoder="~1.0"
-```
-
-Or manually, by adding the following to your
-`composer.json` file:
-
-```js
-// composer.json
-{
-    // ...
-    require: {
-        // ...
-        "rollerworks/uri-encoder": "~1.0"
-    }
-}
-```
-
-Then, you can install the new dependencies by running Composer's `update`
-command from the directory where your `composer.json` file is located:
-
-```bash
-$ php composer update uri-encoder
+$ php composer.phar require rollerworks/search-uri-encoder
 ```
 
 Now, Composer will automatically download all required files, and install them
 for you.
 
-## Basic usage
+Requirements
+------------
+
+You need at least PHP 5.3.3 and optionally have support for gzip compression
+enabled.
+
+This package has no other external dependencies.
+
+Basic usage
+-----------
 
 The usage of this library is very straightforward, each encoder encodes and decodes
 a URL string.
 
-To encode a string for safe usage in URL call `encode()` on the encoder object.
+To encode a string for safe usage in URL call `encodeUri()` on the encoder object.
 
-To decode an encoded string, and the original call call `decode()` on the encoder object.
+To decode an encoded string, to the original value call `decodeUri()` on the encoder object.
 
-**Note:** The decoder will silently ignore invalid data, and return null instead.
+**Note:** Decoders will silently ignore invalid data, and return null instead.
 
 ### Base64UriEncoder
 
 ```php
-// First load the composer autoloader
-require 'vendor/autoloader.php';
+
+require 'vendor/autoload.php';
+
+use Rollerworks\Component\UriEncoder\Encoder as UriEncoder;
 
 $stringEncode = 'This string is not safe, for direct usage & must encoded';
 
-$base64Encoder = new \Rollerworks\Component\UriEncoder\Encoder\Base64UriEncoder();
+$base64Encoder = new UriEncoder\Base64UriEncoder();
 
-$safeValue = $base64Encoder->encode($stringEncode);
+$safeValue = $base64Encoder->encodeUri($stringEncode);
+// $safeValue now contains a base64 URI safe encoded string
 
-// $safeString now contains a base64 encoded string (with some minor differences to real base64 encoding)
-
-$originalValue = $base64Encoder->decode($safeString);
+$originalValue = $base64Encoder->decodeUri($safeValue);
 ```
 
-### GZipCompressionDecorator
+### Decorators
 
-The GZipCompressionDecorator (de)compresses URI data and delegates
-back to the original Encoder.
+To keep the encoders small special features are provided in the form
+of object decorators.
 
-This encoder is meant to be used object-decorator, it can not be used
-as stand-alone.
+A decorator operates on top of the actual encoder.
 
-**Caution:** The GZipCompressionDecorator creates a none-safe binary result,
+* `encodeUri()` modifies the value returned by the decorated encoder.
+* `decodeUri()` modifies the passed-in value before passing to the decorated encoder.
+
+These decorators can not be used as a stand-alone!
+
+#### GZipCompressionDecorator
+
+The `GZipCompressionDecorator` (de)compresses URI data.
+
+**Caution:** The GZipCompressionDecorator creates a non-safe binary result,
 make sure the original encoder supports this.
 
 ```php
-// First load the composer autoloader
-require 'vendor/autoloader.php';
+
+require 'vendor/autoload.php';
+
+use Rollerworks\Component\UriEncoder\Encoder as UriEncoder;
 
 $stringEncode = 'This string is not safe, for direct usage & must encoded';
 
-$base64Encoder = new \Rollerworks\Component\UriEncoder\Encoder\Base64UriEncoder();
-$uriCompressor = new \Rollerworks\Component\UriEncoder\Encoder\GZipCompressionDecorator($base64Encoder);
+$base64Encoder = new UriEncoder\Base64UriEncoder();
+$uriCompressor = new UriEncoder\GZipCompressionDecorator($base64Encoder);
 
-$safeValue = $uriCompressor->encode($stringEncode);
+$safeValue = $uriCompressor->encodeUri($stringEncode);
+// $safeValue now contains a base64 encoded URI safe string, which internally contains the compressed result.
 
-// $safeString now contains a base64 encoded string, which internally contains the compressed string
-
-$originalValue = $uriCompressor->decode($safeString);
+$originalValue = $uriCompressor->decodeUri($safeValue);
 ```
 
-### CacheEncoderDecorator
+#### CacheEncoderDecorator
 
 The CacheEncoderDecorator keeps a cached version of original data
 and delegates calls back to the original Encoder when no there is no cache.
 
-**Caution:** Caching is something that should be only be used when decoding
-costs more then the overhead of using a cache.
+**Caution:** Caching should only be used when decoding costs more then the
+overhead of using a cache (like compression).
 
 By default this library doesn't provide any caching driver.
 You must create your own and implement the `Rollerworks\Component\UriEncoder\CacheAdapterInterface`.
 
-```php
-// First load the composer autoloader
-require 'vendor/autoloader.php';
+**Tip:** For Doctrine you can use the [Doctrine Cache adapter](https://github.com/rollerworks/uri-encoder-doctrine-cache).
 
-// \\Rollerworks\Component\UriEncoder\CacheAdapterInterface
+```php
+
+require 'vendor/autoload.php';
+
+use Rollerworks\Component\UriEncoder\Encoder as UriEncoder;
+
+// Rollerworks\Component\UriEncoder\CacheAdapterInterface
 $cacheDriver = ...;
 
 $stringEncode = 'This string is not safe, for direct usage & must encoded';
 
-$base64Encoder = new \Rollerworks\Component\UriEncoder\Encoder\Base64UriEncoder();
-$cacheEncoder = new \Rollerworks\Component\UriEncoder\Encoder\CacheEncoderDecorator($cacheDriver, $base64Encoder);
+$base64Encoder = new Encoder\Base64UriEncoder();
+$cacheEncoder = new Encoder\CacheEncoderDecorator($cacheDriver, $base64Encoder);
 
 $safeValue = $cacheEncoder->encode($stringEncode);
-
-// $safeString now contains a base64 encoded string
+// $safeValue now contains a base64 encoded string
 // and the result is cached using the cacheDriver.
 
-$originalValue = $cacheEncoder->decode($safeString);
+$originalValue = $cacheEncoder->decode($safeValue);
 ```
 
+Versioning
+----------
 
+For transparency and insight into the release cycle, and for striving
+to maintain backward compatibility, this package is maintained under
+the Semantic Versioning guidelines as much as possible.
 
+Releases will be numbered with the following format:
+
+`<major>.<minor>.<patch>`
+
+And constructed with the following guidelines:
+
+* Breaking backward compatibility bumps the major (and resets the minor and patch)
+* New additions without breaking backward compatibility bumps the minor (and resets the patch)
+* Bug fixes and misc changes bumps the patch
+
+For more information on SemVer, please visit <http://semver.org/>.
+
+License
+-------
+
+The package is provided under the none-restrictive MIT license,
+you are free to use it for any free or proprietary product/application,
+without restrictions.
+
+[LICENSE](LICENSE)
