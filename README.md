@@ -8,7 +8,15 @@
 This package provides the Rollerworks UriEncoder component,
 a simple library, to safely encode a string for usage in a URI.
 
-And some minor extra's, like string compression and result caching.
+And some minor extra's, like string compression and conversion caching.
+
+**Caution:**
+ 
+> Do not use this library for encoding authorization/reset tokens, as this will leak information.
+> Only use this library to transport "public" information, like a filtering preference.
+>
+> Use [paragonie/constant_time_encoding](https://github.com/paragonie/constant_time_encoding) 
+> for time-safe en/decoding. Don't use conversion caching or compression for sensitive information!
 
 Installation
 ------------
