@@ -14,11 +14,15 @@ namespace Rollerworks\Component\UriEncoder\Encoder;
 use Rollerworks\Component\UriEncoder\CacheAdapterInterface;
 use Rollerworks\Component\UriEncoder\UriEncoderInterface;
 
+@trigger_error('The '.__NAMESPACE__.'\CacheEncoderDecorator class is deprecated since version 1.1, to be removed in 2.0.', E_USER_DEPRECATED);
+
 /**
  * CacheEncoderDecorator keeps a cached version of original data
  * and delegates calls back to the original Encoder when no there is no cache.
  *
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
+ *
+ * @deprecated since version 1.1, to be removed in 2.0.
  */
 class CacheEncoderDecorator implements UriEncoderInterface
 {
