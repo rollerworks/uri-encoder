@@ -23,10 +23,8 @@
     "autoload": {
         "psr-4": {
             "Rollerworks\\Component\\UriEncoder\\": "src/"
-        }
-    },
-    "config": {
-        "bin-dir": "bin"
+        },
+        "exclude-from-classmap": ["spec/"]
     },
     "extra": {
         "branch-alias": {
