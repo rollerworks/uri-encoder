@@ -11,8 +11,12 @@
 
 namespace Rollerworks\Component\UriEncoder;
 
+@trigger_error('The '.__NAMESPACE__.'\CacheAdapterInterface class is deprecated since version 1.1, to be removed in 2.0.', E_USER_DEPRECATED);
+
 /**
  * Interface for cache adapters.
+ *
+ * @deprecated since version 1.1, to be removed in 2.0.
  */
 interface CacheAdapterInterface
 {
