@@ -104,40 +104,6 @@ $safeValue = $uriCompressor->encodeUri($stringEncode);
 $originalValue = $uriCompressor->decodeUri($safeValue);
 ```
 
-#### CacheEncoderDecorator
-
-The CacheEncoderDecorator keeps a cached version of original data
-and delegates calls back to the original Encoder when no there is no cache.
-
-**Caution:** Caching should only be used when decoding costs more then the
-overhead of using a cache (like compression).
-
-By default this library doesn't provide any caching driver.
-You must create your own and implement the `Rollerworks\Component\UriEncoder\CacheAdapterInterface`.
-
-**Tip:** For Doctrine you can use the [Doctrine Cache adapter](https://github.com/rollerworks/uri-encoder-doctrine-cache).
-
-```php
-
-require 'vendor/autoload.php';
-
-use Rollerworks\Component\UriEncoder\Encoder as UriEncoder;
-
-// Rollerworks\Component\UriEncoder\CacheAdapterInterface
-$cacheDriver = ...;
-
-$stringEncode = 'This string is not safe, for direct usage & must encoded';
-
-$base64Encoder = new Encoder\Base64UriEncoder();
-$cacheEncoder = new Encoder\CacheEncoderDecorator($cacheDriver, $base64Encoder);
-
-$safeValue = $cacheEncoder->encode($stringEncode);
-// $safeValue now contains a base64 encoded string
-// and the result is cached using the cacheDriver.
-
-$originalValue = $cacheEncoder->decode($safeValue);
-```
-
 Versioning
 ----------
 
