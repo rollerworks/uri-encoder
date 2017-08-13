@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the Rollerworks UriEncoder Component package.
+ * This file is part of the Rollerworks UriEncoder package.
  *
  * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
@@ -15,7 +17,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Rollerworks\Component\UriEncoder\UriEncoderInterface;
 
-class GZipCompressionDecoratorSpec extends ObjectBehavior
+final class GZipCompressionDecoratorSpec extends ObjectBehavior
 {
     public function let(UriEncoderInterface $encoder)
     {
@@ -25,7 +27,7 @@ class GZipCompressionDecoratorSpec extends ObjectBehavior
         });
 
         $encoder->decodeUri(Argument::any())->will(function ($data) {
-            return base64_decode($data[0]);
+            return base64_decode($data[0], true);
         });
 
         $this->beConstructedWith($encoder);

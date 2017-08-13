@@ -11,14 +11,14 @@
         },
         {
             "name": "Community contributions",
-            "homepage": "https://github.com/Rollerworks/rollerworks-uri-encoder/contributors"
+            "homepage": "https://github.com/Rollerworks/uri-encoder/contributors"
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": "^7.1"
     },
     "require-dev": {
-        "phpspec/phpspec": "~2.1"
+        "phpspec/phpspec": "^3.4.2"
     },
     "autoload": {
         "psr-4": {

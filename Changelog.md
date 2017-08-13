@@ -1,6 +1,17 @@
 # ChangeLog
 
-The changelog describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
+The changelog describes what is "Added", "Removed", "Changed" or "Fixed" between each release.
+
+## v2.0.0
+
+* Bump minimum version to PHP 7.1 (and removed support for HHVM).
+
+* Removed the deprecated `CacheEncoderDecorator`.
+
+* Added PHP strict types and return types to all interfaces
+  and classes.
+  
+* Classes are now marked final.
 
 ## v1.1.0
 
