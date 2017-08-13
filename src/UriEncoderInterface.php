@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the Rollerworks UriEncoder Component package.
+ * This file is part of the Rollerworks UriEncoder package.
  *
  * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
@@ -21,18 +23,18 @@ interface UriEncoderInterface
     /**
      * Encodes the URI to a usable format.
      *
-     * @param string|int|float $data
+     * @param string $data
      *
      * @return string
      */
-    public function encodeUri($data);
+    public function encodeUri(string $data): string;
 
     /**
      * Decodes the encoded URI back to the original format.
      *
      * @param string $data
      *
-     * @return string|int|float
+     * @return string|null
      */
-    public function decodeUri($data);
+    public function decodeUri(string $data): ?string;
 }

@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the Rollerworks UriEncoder Component package.
+ * This file is part of the Rollerworks UriEncoder package.
  *
  * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
@@ -13,7 +15,7 @@ namespace spec\Rollerworks\Component\UriEncoder\Encoder;
 
 use PhpSpec\ObjectBehavior;
 
-class Base64UriEncoderSpec extends ObjectBehavior
+final class Base64UriEncoderSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {

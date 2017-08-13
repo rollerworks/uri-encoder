@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the Rollerworks UriEncoder Component package.
+ * This file is part of the Rollerworks UriEncoder package.
  *
  * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
@@ -19,7 +21,7 @@ use Rollerworks\Component\UriEncoder\UriEncoderInterface;
  *
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
-class GZipCompressionDecorator implements UriEncoderInterface
+final class GZipCompressionDecorator implements UriEncoderInterface
 {
     /**
      * @var UriEncoderInterface
@@ -37,28 +39,26 @@ class GZipCompressionDecorator implements UriEncoderInterface
     /**
      * {@inheritdoc}
      */
-    public function encodeUri($data)
+    public function encodeUri(string $data): string
     {
-        $data = gzcompress($data);
-
-        return $this->encoder->encodeUri($data);
+        return $this->encoder->encodeUri(gzcompress($data));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function decodeUri($data)
+    public function decodeUri(string $data): ?string
     {
         $data = $this->encoder->decodeUri($data);
+
         if (null === $data) {
-            return;
+            return null;
         }
 
-        $result = @gzuncompress($data);
-        if (false !== $result) {
-            return $result;
+        try {
+            return gzuncompress($data) ?? null;
+        } catch (\Throwable $e) {
+            return null;
         }
-
-        return;
     }
 }

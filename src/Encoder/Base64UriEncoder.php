@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 /*
- * This file is part of the Rollerworks UriEncoder Component package.
+ * This file is part of the Rollerworks UriEncoder package.
  *
  * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
@@ -20,12 +22,12 @@ use Rollerworks\Component\UriEncoder\UriEncoderInterface;
  *
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
-class Base64UriEncoder implements UriEncoderInterface
+final class Base64UriEncoder implements UriEncoderInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function encodeUri($data)
+    public function encodeUri(string $data): string
     {
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
@@ -33,13 +35,12 @@ class Base64UriEncoder implements UriEncoderInterface
     /**
      * {@inheritdoc}
      */
-    public function decodeUri($data)
+    public function decodeUri(string $data): ?string
     {
-        $result = @base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT), true);
-        if (false !== $result) {
-            return $result;
+        try {
+            return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT), true) ?? null;
+        } catch (\Throwable $e) {
+            return null;
         }
-
-        return;
     }
 }
