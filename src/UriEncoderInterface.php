@@ -18,13 +18,9 @@ namespace Rollerworks\Component\UriEncoder;
  */
 interface UriEncoderInterface
 {
-    /**
-     * Encodes the URI to a usable format.
-     */
+    /** Encodes the URI to a usable format. */
     public function encodeUri(string $data): string;
 
-    /**
-     * Decodes the encoded URI back to the original format.
-     */
+    /** Decodes the encoded URI back to the original format. */
     public function decodeUri(string $data): ?string;
 }
