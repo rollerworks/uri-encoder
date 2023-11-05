@@ -25,7 +25,7 @@ final class GZipCompressionDecorator implements UriEncoderInterface
 
     public function encodeUri(string $data): string
     {
-        return $this->encoder->encodeUri(gzcompress($data));
+        return $this->encoder->encodeUri((string) gzcompress($data));
     }
 
     public function decodeUri(string $data): ?string
@@ -37,7 +37,9 @@ final class GZipCompressionDecorator implements UriEncoderInterface
         }
 
         try {
-            return gzuncompress($decoded);
+            $compressed = gzuncompress($decoded);
+
+            return $compressed === false ? null : $compressed;
         } catch (\Throwable) {
             return null;
         }
