@@ -12,44 +12,38 @@ to safely encode a string for usage in a URI. Plus a zlib compression.
 > Use [paragonie/constant_time_encoding](https://github.com/paragonie/constant_time_encoding) 
 > for time-safe en/decoding. Don't use conversion caching or compression for sensitive information!
 
-Installation
-------------
+## Installation
 
-To install this package, add `rollerworks/search-uri-encoder` to your composer.json
+To install this package, add `rollerworks/search-uri-encoder` to your composer.json:
 
 ```bash
 $ php composer.phar require rollerworks/search-uri-encoder
 ```
 
-Now, Composer will automatically download all required files, and install them
-for you.
+Now, [Composer][composer] will automatically download all required files,
+and install them for you.
 
-Requirements
-------------
+## Requirements
 
-You need at least PHP 8.1 and optionally have support for gzip compression
+You need at least PHP 8.1, and optionally have support for gzip compression
 enabled.
 
 This package has no other external dependencies.
 
-Basic usage
------------
+## Basic usage
 
 The usage of this library is very straightforward, each encoder encodes and decodes
 a URL string.
 
-To encode a string for safe usage in a URL call `encodeUri()` on the encoder object.
+To encode a string for safe usage in a URL call `encodeUri()` on the encoder.
+To decode an encoded string, to the original value call `decodeUri()` on the encoder.
 
-To decode an encoded string, to the original value call `decodeUri()` on the encoder object.
-
-**Note:** Decoders will silently ignore invalid data, and return null instead.
+**Note:** The `decode()` method will silently ignore invalid data, 
+and return null instead.
 
 ### Base64UriEncoder
 
 ```php
-
-require 'vendor/autoload.php';
-
 use Rollerworks\Component\UriEncoder\Encoder as UriEncoder;
 
 $stringEncode = 'This string is not safe, for direct usage & must encoded';
@@ -72,19 +66,16 @@ A decorator operates on top of the actual encoder.
 * `encodeUri()` modifies the value returned by the decorated encoder.
 * `decodeUri()` modifies the passed-in value before passing to the decorated encoder.
 
-These decorators can not be used as a stand-alone.
+These decorators cannot be used as a stand-alone.
 
 #### GZipCompressionDecorator
 
 The `GZipCompressionDecorator` (de)compresses URI data.
 
-**Caution:** The GZipCompressionDecorator creates a non-safe binary result,
+**Caution:** The `GZipCompressionDecorator` creates a non-safe binary result,
 make sure the original encoder supports this.
 
 ```php
-
-require 'vendor/autoload.php';
-
 use Rollerworks\Component\UriEncoder\Encoder as UriEncoder;
 
 $stringEncode = 'This string is not safe, for direct usage & must encoded';
@@ -120,8 +111,15 @@ For more information on SemVer, please visit <http://semver.org/>.
 License
 -------
 
-The package is provided under the none-restrictive MIT license,
-you are free to use it for any free or proprietary product/application,
-without restrictions.
+This library is released under the [MIT license](LICENSE).
 
-[LICENSE](LICENSE)
+## Contributing
+
+This is an open source project. If you'd like to contribute,
+please read the [Contributing Guidelines][contributing]. If you're submitting
+a pull request, please follow the guidelines in the [Submitting a Patch][patches] section.ß
+
+[composer]: https://getcomposer.org/doc/00-intro.md
+[flex]: https://symfony.com/doc/current/setup/flex.html
+[contributing]: https://contributing.rollerscapes.net/
+[patches]: https://contributing.rollerscapes.net/latest/patches.html
