@@ -1,14 +1,8 @@
-﻿Rollerworks UriEncoder Component
-================================
+﻿Rollerworks UriEncoder
+======================
 
-[![Build Status](https://secure.travis-ci.org/rollerworks/rollerworks-uri-encoder.png?branch=master)](http://travis-ci.org/rollerworks/rollerworks-uri-encoder)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/0b197295-cc98-4425-afe6-ad2b59283db6/mini.png)](https://insight.sensiolabs.com/projects/0b197295-cc98-4425-afe6-ad2b59283db6)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/rollerworks/rollerworks-uri-encoder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/rollerworks/rollerworks-uri-encoder/?branch=master)
-
-This package provides the Rollerworks UriEncoder component,
-a simple library, to safely encode a string for usage in a URI.
-
-And some minor extra's, like string compression and conversion caching.
+This package provides the Rollerworks UriEncoder component, a simple library, 
+to safely encode a string for usage in a URI. Plus a zlib compression.
 
 **Caution:**
  
@@ -33,7 +27,7 @@ for you.
 Requirements
 ------------
 
-You need at least PHP 5.3.3 and optionally have support for gzip compression
+You need at least PHP 8.1 and optionally have support for gzip compression
 enabled.
 
 This package has no other external dependencies.
@@ -44,7 +38,7 @@ Basic usage
 The usage of this library is very straightforward, each encoder encodes and decodes
 a URL string.
 
-To encode a string for safe usage in URL call `encodeUri()` on the encoder object.
+To encode a string for safe usage in a URL call `encodeUri()` on the encoder object.
 
 To decode an encoded string, to the original value call `decodeUri()` on the encoder object.
 
@@ -78,7 +72,7 @@ A decorator operates on top of the actual encoder.
 * `encodeUri()` modifies the value returned by the decorated encoder.
 * `decodeUri()` modifies the passed-in value before passing to the decorated encoder.
 
-These decorators can not be used as a stand-alone!
+These decorators can not be used as a stand-alone.
 
 #### GZipCompressionDecorator
 
