@@ -18,46 +18,29 @@ use Rollerworks\Component\UriEncoder\UriEncoderInterface;
 /**
  * GZipCompressionDecorator (de)compresses URI data and delegates
  * back to the original Encoder.
- *
- * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
 final class GZipCompressionDecorator implements UriEncoderInterface
 {
-    /**
-     * @var UriEncoderInterface
-     */
-    private $encoder;
+    public function __construct(private UriEncoderInterface $encoder) {}
 
-    /**
-     * @param UriEncoderInterface $encoder
-     */
-    public function __construct(UriEncoderInterface $encoder)
-    {
-        $this->encoder = $encoder;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function encodeUri(string $data): string
     {
-        return $this->encoder->encodeUri(gzcompress($data));
+        return $this->encoder->encodeUri((string) gzcompress($data));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function decodeUri(string $data): ?string
     {
-        $data = $this->encoder->decodeUri($data);
+        $decoded = $this->encoder->decodeUri($data);
 
-        if (null === $data) {
+        if ($decoded === null) {
             return null;
         }
 
         try {
-            return gzuncompress($data) ?? null;
-        } catch (\Throwable $e) {
+            $compressed = gzuncompress($decoded);
+
+            return $compressed === false ? null : $compressed;
+        } catch (\Throwable) {
             return null;
         }
     }

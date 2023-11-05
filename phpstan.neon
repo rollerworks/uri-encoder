@@ -1,0 +1,16 @@
+includes:
+    - vendor/rollerscapes/standards/phpstan.neon
+    #- phpstan-baseline.neon
+
+parameters:
+    #reportUnmatchedIgnoredErrors: false
+
+    paths:
+        - ./src
+        - ./tests
+    excludePaths:
+        - var/
+        - templates/
+        - translations/
+
+    #ignoreErrors:
