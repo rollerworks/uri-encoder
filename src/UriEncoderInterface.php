@@ -15,26 +15,16 @@ namespace Rollerworks\Component\UriEncoder;
 
 /**
  * UriEncoderInterface encodes a string for URL usage.
- *
- * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
 interface UriEncoderInterface
 {
     /**
      * Encodes the URI to a usable format.
-     *
-     * @param string $data
-     *
-     * @return string
      */
     public function encodeUri(string $data): string;
 
     /**
      * Decodes the encoded URI back to the original format.
-     *
-     * @param string $data
-     *
-     * @return string|null
      */
     public function decodeUri(string $data): ?string;
 }

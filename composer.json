@@ -11,20 +11,28 @@
         },
         {
             "name": "Community contributions",
-            "homepage": "https://github.com/Rollerworks/uri-encoder/contributors"
+            "homepage": "https://github.com/rollerworks/uri-encoder/contributors"
         }
     ],
     "require": {
-        "php": "^7.1"
+        "php": "^8.1",
+        "symfony/polyfill-mbstring": "^1.28"
     },
     "require-dev": {
-        "phpspec/phpspec": "^3.4.2"
+        "ext-zlib": "*",
+        "rollerscapes/standards": "^1.0",
+        "phpunit/phpunit": "^10.4"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Rollerworks\\Component\\UriEncoder\\": "src/"
         },
-        "exclude-from-classmap": ["spec/"]
+        "exclude-from-classmap": ["tests/"]
+    },
+    "autoload-dev": {
+        "Rollerworks\\Component\\UriEncoder\\Tests\\": "tests/"
     },
     "extra": {
         "branch-alias": {
