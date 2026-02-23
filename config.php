@@ -1,0 +1,12 @@
+<?php
+
+// See https://hupkit.github.io/hupkit/config.html
+
+return [
+    'schema_version' => 2,
+    'host' => 'github.com',
+    'repository' => 'rollerworks/uri-encoder',
+    'branches' => [
+        '1.x' => false,
+    ],
+];
