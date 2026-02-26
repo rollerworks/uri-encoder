@@ -1,9 +1,11 @@
 {
     "name": "rollerworks/uri-encoder",
     "description": "A simple library, to safely encode a string for usage in a URI.",
-    "keywords": ["rollerworks"],
-    "type": "library",
     "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "rollerworks"
+    ],
     "authors": [
         {
             "name": "Sebastiaan Stok",
@@ -20,8 +22,8 @@
     },
     "require-dev": {
         "ext-zlib": "*",
-        "rollerscapes/standards": "^1.0",
-        "phpunit/phpunit": "^10.4"
+        "phpunit/phpunit": "^10.4",
+        "rollerscapes/standards": "^1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -29,14 +31,16 @@
         "psr-4": {
             "Rollerworks\\Component\\UriEncoder\\": "src/"
         },
-        "exclude-from-classmap": ["tests/"]
+        "exclude-from-classmap": [
+            "tests/"
+        ]
     },
     "autoload-dev": {
         "Rollerworks\\Component\\UriEncoder\\Tests\\": "tests/"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0-dev"
+            "dev-2.0": "2.1-dev"
         }
     }
 }
